@@ -9,10 +9,11 @@ function OptimizeForm() {
     const [maxGenerations, setMaxGenerations] = useState('');
     const [responseData, setResponseData] = useState([]);
     const [error, setError] = useState(null);
+    const [loading,setLoading]=useState(false)
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        setLoading(true)
         const formData = new FormData();
         formData.append('carbs', carbs);
         formData.append('fat', fat);
@@ -34,15 +35,17 @@ function OptimizeForm() {
         axios(config)
             .then(function (response) {
                 setResponseData(response.data);
-                console.log(response.data);
+                setLoading(false)
             })
             .catch(function (error) {
                 setError(error);
+                setLoading(false)
             });
     }
 
     return (
         <div className='pageDiv'>
+            
             <form onSubmit={handleSubmit} className="optimize-form">
                 <label>
                     Carbs:
@@ -89,6 +92,7 @@ function OptimizeForm() {
                 <input type="submit" value="Submit" className='submit' />
                 {error && <div>{error.message}</div>}
             </form>
+           
             <div className='cardDiv'>
                 {responseData.map((food) => {
                     return (
@@ -102,6 +106,7 @@ function OptimizeForm() {
                     )
                 })}
             </div>
+            {loading&&(<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>)}
         </div>
     );
 
