@@ -7,7 +7,7 @@ function OptimizeForm() {
     const [fat, setFat] = useState('');
     const [maxCalories, setMaxCalories] = useState('');
     const [maxGenerations, setMaxGenerations] = useState('');
-    const [responseData, setResponseData] = useState(null);
+    const [responseData, setResponseData] = useState([]);
     const [error, setError] = useState(null);
 
     const handleSubmit = (event) => {
@@ -23,7 +23,7 @@ function OptimizeForm() {
             method: 'post',
             url: 'http://127.0.0.1:5000/optimize',
             headers: {
-                
+
             },
             data: formData
         };
@@ -39,54 +39,69 @@ function OptimizeForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit} className="optimize-form">
-            <label>
-                Carbs:
-                <input
-                    type="number"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value={carbs}
-                    onChange={e => setCarbs(e.target.value)}
-                />
-            </label>
+        <div className='pageDiv'>
+            <form onSubmit={handleSubmit} className="optimize-form">
+                <label>
+                    Carbs:
+                    <input
+                        type="number"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        value={carbs}
+                        onChange={e => setCarbs(e.target.value)}
+                    />
+                </label>
 
-            <label>
-                Fat:
-                <input
-                    type="number"
-                    min="0"
-                    max="1"
-                    step="0.01"
-                    value={fat}
-                    onChange={e => setFat(e.target.value)}
-                />
-            </label>
+                <label>
+                    Fat:
+                    <input
+                        type="number"
+                        min="0"
+                        max="1"
+                        step="0.01"
+                        value={fat}
+                        onChange={e => setFat(e.target.value)}
+                    />
+                </label>
 
-      <label>
-        Max Calories:
-        <input
-          type="number"
-          value={maxCalories}
-          onChange={e => setMaxCalories(e.target.value)}
-        />
-        </label>
+                <label>
+                    Max Calories:
+                    <input
+                        type="number"
+                        value={maxCalories}
+                        onChange={e => setMaxCalories(e.target.value)}
+                    />
+                </label>
 
-      <label>
-        Max Generations:
-        <input
-          type="number"
-          value={maxGenerations}
-          onChange={e => setMaxGenerations(e.target.value)}
-        />
-      </label>
+                <label>
+                    Max Generations:
+                    <input
+                        type="number"
+                        value={maxGenerations}
+                        onChange={e => setMaxGenerations(e.target.value)}
+                    />
+                </label>
 
-      <input type="submit" value="Submit" className='submit'/>
-            {responseData && <div>{JSON.stringify(responseData)}</div>}
-            {error && <div>{error.message}</div>}
-        </form>
+                <input type="submit" value="Submit" className='submit' />
+                {error && <div>{error.message}</div>}
+            </form>
+            <div className='cardDiv'>
+                {responseData.map((food) => {
+                    return (
+                        <div className='card' key={food.name}>
+                            <h2>{food.name}</h2>
+                            <h4> Calories: {food.Energy}</h4>
+                            <h4> Carbs: {food.carbs}</h4>
+                            <h4> Fats: {food.fat}</h4>
+                            <h4> Protein: {food.protein}</h4>
+                        </div>
+                    )
+                })}
+            </div>
+        </div>
     );
+
 }
 
 export default OptimizeForm;
