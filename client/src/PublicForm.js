@@ -20,7 +20,7 @@ function OptimizeForm() {
         formData.append('max_calories', maxCalories);
         formData.append('max_generation', maxGenerations);
         // console.log(window.location)
-        let apiUrl = `http://${window.location}:8000/optimize`;
+        let apiUrl = `http://${ window.location.hostname}:8000/optimize`;
         if (process.env.NODE_ENV === "production") {
           apiUrl = 'https://eveolutionary-algorithm-server.onrender.com/optimize'
         }
