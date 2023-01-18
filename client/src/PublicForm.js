@@ -13,10 +13,16 @@ function OptimizeForm() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        if(parseInt(carbs)+parseInt(fat)>100){
+            alert("carbs and fat in total should not exceed 100%")
+            return;
+        }
+       
+      
         setLoading(true)
         const formData = new FormData();
-        formData.append('carbs', carbs);
-        formData.append('fat', fat);
+        formData.append('carbs', carbs*0.01);
+        formData.append('fat', fat*0.01);
         formData.append('max_calories', maxCalories);
         formData.append('max_generation', maxGenerations);
         // console.log(window.location)
@@ -39,6 +45,7 @@ function OptimizeForm() {
                 setLoading(false)
             })
             .catch(function (error) {
+                
                 setError(error);
                 setLoading(false)
             });
@@ -49,24 +56,24 @@ function OptimizeForm() {
             
             <form onSubmit={handleSubmit} className="optimize-form">
                 <label>
-                    Carbs:
-                    <input
+                    Carbs (%):
+                    <input required
                         type="number"
                         min="0"
-                        max="1"
-                        step="0.01"
+                        max="100"
+                        step="1"
                         value={carbs}
                         onChange={e => setCarbs(e.target.value)}
                     />
                 </label>
 
                 <label>
-                    Fat:
-                    <input
+                    Fat (%):
+                    <input required
                         type="number"
                         min="0"
-                        max="1"
-                        step="0.01"
+                        max="100"
+                        step="1"
                         value={fat}
                         onChange={e => setFat(e.target.value)}
                     />
@@ -74,7 +81,8 @@ function OptimizeForm() {
 
                 <label>
                     Max Calories:
-                    <input
+                    <input required
+                        min="1"
                         type="number"
                         value={maxCalories}
                         onChange={e => setMaxCalories(e.target.value)}
@@ -83,7 +91,8 @@ function OptimizeForm() {
 
                 <label>
                     Max Generations:
-                    <input
+                    <input required
+                        min="1"
                         type="number"
                         value={maxGenerations}
                         onChange={e => setMaxGenerations(e.target.value)}
@@ -91,6 +100,7 @@ function OptimizeForm() {
                 </label>
 
                 <input type="submit" value="Submit" className='submit' />
+                {loading&&(<div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>)}
                 {error && <div>{error.message}</div>}
             </form>
            
@@ -107,7 +117,7 @@ function OptimizeForm() {
                     )
                 })}
             </div>
-            {loading&&(<div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>)}
+          
         </div>
     );
 
