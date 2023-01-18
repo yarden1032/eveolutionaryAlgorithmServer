@@ -9,12 +9,13 @@ from eckity.genetic_operators.mutations.vector_random_mutation import BitStringV
 from eckity.genetic_operators.selections.tournament_selection import TournamentSelection
 from eckity.statistics.best_average_worst_statistics import BestAverageWorstStatistics
 from eckity.subpopulation import Subpopulation
-
+from flasgger import Swagger
 from find_meal_evaluator import FindMealEvaluator
 import json
 from flask_cors import CORS
 
 app = Flask(__name__)
+swagger = Swagger(app, template_file='template.yml')
 CORS(app)
 
 
@@ -25,11 +26,15 @@ def home():
 
 @app.route('/optimize', methods=['POST'])
 
+
 def optimize():
-    fat = request.form['fat']
-    carbs = request.form['carbs']
-    max_calories = request.form['max_calories']
+    fat = float(request.form['fat'])
+    carbs = float(request.form['carbs'])
+    max_calories = float(request.form['max_calories'])
     max_generation = request.form['max_generation']
+    if fat + carbs > 1:
+        return jsonify({'error': 'Invalid fat and carbs values, the sum should be less than or equal to 1'}), 400
+
     with  open("excelReader.json", "r") as json_file:
         items_dict = json.load(json_file)
         num_items = len(items_dict)

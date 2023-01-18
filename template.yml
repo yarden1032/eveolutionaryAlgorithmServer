@@ -1,0 +1,37 @@
+swagger: "2.0"
+info:
+  title: Meal optimization API
+  version: "1.0"
+basePath: /
+produces:
+  - application/json
+paths:
+  /optimize:
+    post:
+      tags:
+        - optimize
+      summary: Optimize the meal
+      parameters:
+        - in: formData
+          name: fat
+          type: number
+          required: true
+          description: percentage of importance of fat in the meal (between 0 to 1)
+        - in: formData
+          name: carbs
+          type: number
+          required: true
+          description: percentage of importance of carbs in the meal (between 0 to 1)
+        - in: formData
+          name: max_calories
+          type: number
+          required: true
+          description: Maximum allowed calories in the meal
+        - in: formData
+          name: max_generation
+          type: integer
+          required: true
+          description: Maximum allowed generations
+      responses:
+        200:
+          description: A list of items that make up the best meal for the user based on the given constraints
