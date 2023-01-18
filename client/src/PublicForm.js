@@ -6,11 +6,12 @@ function OptimizeForm() {
     const [carbs, setCarbs] = useState('');
     const [fat, setFat] = useState('');
     const [maxCalories, setMaxCalories] = useState('');
-    const [maxGenerations, setMaxGenerations] = useState('');
+    const [maxGenerations, setMaxGenerations] = useState('10');
     const [responseData, setResponseData] = useState([]);
     const [error, setError] = useState(null);
     const [loading,setLoading]=useState(false)
-
+    const [envstatus,setEnv] = useState(process.env.NODE_ENV=== "production")
+    // const [maxGenState,setMaxGenState]=useState(0)
     const handleSubmit = (event) => {
         event.preventDefault();
         if(parseInt(carbs)+parseInt(fat)>100){
@@ -89,8 +90,7 @@ function OptimizeForm() {
                         onChange={e => setMaxCalories(e.target.value)}
                     />
                 </label>
-
-                <label>
+                {!envstatus&&<label>
                     Max Generations:
                     <input required
                         min="1"
@@ -98,7 +98,8 @@ function OptimizeForm() {
                         value={maxGenerations}
                         onChange={e => setMaxGenerations(e.target.value)}
                     />
-                </label>
+                </label>}
+
 
                 <input type="submit" value="Submit" className='submit' />
                 {loading&&(<div className="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>)}
