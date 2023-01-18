@@ -2,6 +2,8 @@ swagger: "2.0"
 info:
   title: Meal optimization API
   version: "1.0"
+  description: "Meal optimization using evolutionary algorithm API \n \n
+  Made by Yarden Kantor and Noa Leron ©, 2023."
 basePath: /
 produces:
   - application/json
@@ -9,8 +11,8 @@ paths:
   /optimize:
     post:
       tags:
-        - optimize
-      summary: Optimize the meal
+        - Optimize
+      summary: Get the best optimize meal using evolutionary algorithm
       parameters:
         - in: formData
           name: fat
