@@ -17,6 +17,7 @@ function OptimizeForm() {
             alert("carbs and fat in total should not exceed 100%")
             return;
         }
+        setError("")
        
       
         setLoading(true)
