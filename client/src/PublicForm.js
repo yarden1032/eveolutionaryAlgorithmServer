@@ -6,7 +6,7 @@ function OptimizeForm() {
     const [carbs, setCarbs] = useState('');
     const [fat, setFat] = useState('');
     const [maxCalories, setMaxCalories] = useState('');
-    const [maxGenerations, setMaxGenerations] = useState('10');
+    const [maxGenerations, setMaxGenerations] = useState('5');
     const [responseData, setResponseData] = useState([]);
     const [error, setError] = useState(null);
     const [loading,setLoading]=useState(false)
