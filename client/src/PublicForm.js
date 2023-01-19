@@ -10,7 +10,7 @@ function OptimizeForm() {
     const [responseData, setResponseData] = useState([]);
     const [error, setError] = useState(null);
     const [loading,setLoading]=useState(false)
-    const [envstatus,setEnv] = useState(process.env.NODE_ENV=== "production")
+    const [envstatus] = useState(process.env.NODE_ENV=== "production")
     // const [maxGenState,setMaxGenState]=useState(0)
     const handleSubmit = (event) => {
         event.preventDefault();
