@@ -25,6 +25,11 @@ paths:
           required: true
           description: percentage of importance of carbs in the meal (between 0 to 1)
         - in: formData
+          name: protein
+          type: number
+          required: true
+          description: percentage of importance of carbs in the meal (between 0 to 1)
+        - in: formData
           name: max_calories
           type: number
           required: true
