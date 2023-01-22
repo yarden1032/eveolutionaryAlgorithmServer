@@ -5,6 +5,7 @@ import './OptimizeForm.css';
 function OptimizeForm() {
     const [carbs, setCarbs] = useState('');
     const [fat, setFat] = useState('');
+    const[protein,setProtein]=useState('');
     const [maxCalories, setMaxCalories] = useState('');
     const [maxGenerations, setMaxGenerations] = useState('5');
     const [responseData, setResponseData] = useState([]);
@@ -14,8 +15,8 @@ function OptimizeForm() {
     // const [maxGenState,setMaxGenState]=useState(0)
     const handleSubmit = (event) => {
         event.preventDefault();
-        if(parseInt(carbs)+parseInt(fat)>100){
-            alert("carbs and fat in total should not exceed 100%")
+        if(parseInt(carbs)<0||parseInt(fat)<0||parseInt(protein)<0){
+            alert("all the values must be above 0")
             return;
         }
         setError("")
@@ -23,8 +24,9 @@ function OptimizeForm() {
       
         setLoading(true)
         const formData = new FormData();
-        formData.append('carbs', carbs*0.01);
-        formData.append('fat', fat*0.01);
+        formData.append('carbs', carbs);
+        formData.append('fat', fat);
+        formData.append('protein',protein)
         formData.append('max_calories', maxCalories);
         formData.append('max_generation', maxGenerations);
         // console.log(window.location)
@@ -58,26 +60,34 @@ function OptimizeForm() {
             
             <form onSubmit={handleSubmit} className="optimize-form">
                 <label>
-                    Carbs (%):
+                    Carbs:
                     <input required
                         type="number"
-                        min="0"
-                        max="100"
                         step="1"
+                           min="0"
                         value={carbs}
                         onChange={e => setCarbs(e.target.value)}
                     />
                 </label>
 
                 <label>
-                    Fat (%):
+                    Fat:
                     <input required
                         type="number"
-                        min="0"
-                        max="100"
                         step="1"
+                           min="0"
                         value={fat}
                         onChange={e => setFat(e.target.value)}
+                    />
+                </label>
+                <label>
+                protein:
+                    <input required
+                        type="number"
+                           min="0"
+                        step="1"
+                        value={protein}
+                        onChange={e => setProtein(e.target.value)}
                     />
                 </label>
 

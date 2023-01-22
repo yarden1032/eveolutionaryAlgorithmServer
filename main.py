@@ -20,20 +20,27 @@ CORS(app)
 
 
 @app.route('/', methods=['GET'])
-
 def home():
     return jsonify({'message': 'Welcome to the meal optimization API'})
 
+
 @app.route('/optimize', methods=['POST'])
-
-
 def optimize():
     fat = float(request.form['fat'])
     carbs = float(request.form['carbs'])
     max_calories = float(request.form['max_calories'])
-    max_generation = request.form['max_generation']
-    if fat + carbs > 1:
-        return jsonify({'error': 'Invalid fat and carbs values, the sum should be less than or equal to 1'}), 400
+    protein = float(request.form['protein'])
+    max_generation = int(request.form['max_generation'])
+    if fat < 0:
+        return jsonify({'error': 'Invalid fat value,should be above 0'}), 400
+    if carbs < 0:
+        return jsonify({'error': 'Invalid carbs value,should be above 0'}), 400
+    if protein < 0:
+        return jsonify({'error': 'Invalid protein value,should be above 0'}), 400
+    if max_generation < 0:
+        return jsonify({'error': 'Invalid max_generation value,should be above 0'}), 400
+    if max_calories < 0:
+        return jsonify({'error': 'Invalid max_calories value,should be above 0'}), 400
 
     with  open("excelReader.json", "r") as json_file:
         items_dict = json.load(json_file)
@@ -44,6 +51,7 @@ def optimize():
                       population_size=70,
                       # user-defined fitness evaluation method
                       evaluator=FindMealEvaluator(items=items_dict, fat=float(fat), carbs=float(carbs),
+                                                  protein=float(protein),
                                                   max_calories=float(max_calories)),
                       # maximization problem (fitness is sum of percentage of fat, carbs and protein),
                       # so higher fitness is better
