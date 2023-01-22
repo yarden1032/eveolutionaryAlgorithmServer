@@ -18,17 +18,17 @@ paths:
           name: fat
           type: number
           required: true
-          description: percentage of importance of fat in the meal (between 0 to 1)
+          description: fat importance in the meal
         - in: formData
           name: carbs
           type: number
           required: true
-          description: percentage of importance of carbs in the meal (between 0 to 1)
+          description: carbs importance in the meal
         - in: formData
           name: protein
           type: number
           required: true
-          description: percentage of importance of carbs in the meal (between 0 to 1)
+          description: protein importance in the meal
         - in: formData
           name: max_calories
           type: number
