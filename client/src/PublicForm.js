@@ -81,7 +81,7 @@ function OptimizeForm() {
                     />
                 </label>
                 <label>
-                protein:
+                Protein:
                     <input required
                         type="number"
                            min="0"
