@@ -1,15 +1,15 @@
 pipeline {
-    agent none 
+    agent any 
     stages {
-        stage('Build') { 
-            agent {
-                docker {
-                    image 'python:3.12.1-alpine3.19' 
-                }
+        stage('version')
+        {
+            steps{
+                sh 'python3 --version'
             }
+        }
+        stage('Build') { 
             steps {
                 sh 'python main.py' 
-                stash(name: 'compiled-results', includes: 'sources/*.py*') 
             }
         }
     }
