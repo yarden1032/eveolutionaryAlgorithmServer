@@ -5,9 +5,6 @@ pipeline {
     args '-u root --privileged'
   }
 } 
-triggers {
-    githubPush()
-}
 
 stages {     
     stage('Setup'){
