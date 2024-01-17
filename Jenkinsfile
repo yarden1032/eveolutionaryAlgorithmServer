@@ -1,21 +1,29 @@
 pipeline {
-    agent any 
-    stages {
-        stage('version')
-        {
-             agent {
-                docker {
-                    image 'python:3.12.1-alpine3.19' 
-                }
-            }
-            steps{
-                sh 'python3 --version'
-            }
+  agent {
+  docker {
+    image 'python:3.9-slim'
+    args '-u root --privileged'
+  }
+} 
+triggers {
+    githubPush()
+}
+
+stages {     
+    stage('Setup'){
+       steps{
+           sh 'pip install -r requirements.txt'  
         }
-        // stage('Build') { 
-        //     steps {
-        //         sh 'python main.py' 
-        //     }
-        // }
-    }
+     }
+      
+
+
+stage('run'){ 
+           steps{
+               sh 'python main.py'
+            }                    
+         }                              
+       ...
+       ...  
+      }
 }
