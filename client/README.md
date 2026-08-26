@@ -23,4 +23,4 @@ npm ci
 npm run build
 ```
 
-The production build is written to `dist/` and calls the hosted Render API.
+The production build is written to `build/` and calls the hosted Render API.
