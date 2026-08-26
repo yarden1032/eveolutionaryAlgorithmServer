@@ -1,15 +1,13 @@
-
 import './App.css';
- 
-import OptimizeForm from './PublicForm.js'
+import OptimizeForm from './PublicForm.jsx';
+
 function App() {
   return (
     <div className="App">
       <header>
-      <h1>Evolutionary Algorithms</h1>
+        <h1>Evolutionary Algorithms</h1>
       </header>
-      
-<OptimizeForm/>
+      <OptimizeForm />
     </div>
   );
 }
