@@ -1,11 +1,9 @@
 import random
 import numpy as np
 import json
+import string
 
 from eckity.evaluators.simple_individual_evaluator import SimpleIndividualEvaluator
-from pandas.io.formats import string
-
-
 
 class FindMealEvaluator(SimpleIndividualEvaluator):
     """
